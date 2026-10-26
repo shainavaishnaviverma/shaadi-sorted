@@ -197,3 +197,9 @@ input:focus, select:focus { outline: 2px solid var(--teal); border-color: var(--
 .rs { box-shadow: 0 1px 3px rgba(0,0,0,.15); }
 table.guests tbody tr:hover { background: #FFFAEC; }
 @media (max-width: 640px) { .next-card::before { width: 100px; height: 100px; right: -24px; top: -24px; } }
+
+/* v2.1 fixes: popovers above the garland, keep flower off the next-step title */
+.popover { z-index: 40; top: 68px; }
+.topbar::after { z-index: 1; }
+.next-card { padding-right: 130px; }
+@media (max-width: 640px) { .next-card { padding-right: 70px; } }
