@@ -71,6 +71,7 @@ function renderIntake(prefill = {}) {
   const soon = new Date(Date.now() + 200 * 86400000).toISOString().slice(0, 10);
   $("#app").innerHTML = `
   <div class="intake">
+    <div class="intake-hero"><div class="garland"></div></div>
     <h1>Plan the whole shaadi, in one place.</h1>
     <p class="lead">Tell us about the couple. We build the functions, a dated checklist and a budget split. If two families bring two traditions, we merge both into one plan and flag where they clash.</p>
     <form id="intake" class="card">
@@ -298,15 +299,15 @@ function renderChat() {
     if (m.role === "typing") return `<div class="typing">Thinking...</div>`;
     const acts = (m.actions || []).map((a) => {
       const r = a.result || {};
-      const cls = r.error ? "err" : r.status === "pending_confirmation" ? "wait" : "";
-      return `<span class="act ${cls}">${r.error ? "blocked" : r.status === "pending_confirmation" ? "awaiting you" : "done"}: ${esc(a.tool)}</span>`;
+      const cls = r.error ? (/blocked/i.test(r.error) ? "err" : "neutral") : r.status === "pending_confirmation" ? "wait" : "";
+      return `<span class="act ${cls}">${r.error ? (/blocked/i.test(r.error) ? "blocked" : "not done") : r.status === "pending_confirmation" ? "awaiting you" : "done"}: ${esc(a.tool)}</span>`;
     }).join("");
     const drafts = (m.actions || []).filter((a) => a.tool === "draft_invite_message" && a.result && a.result.ok).map((a) =>
       `<div class="draft"><b>Draft for ${esc(a.result.guest)} · ${esc(a.result.function)}</b><p>${esc(a.result.text)}</p>
        <a class="btn small gold" href="${esc(a.result.wa_link)}" target="_blank" rel="noopener">Open in WhatsApp</a>
        <span class="small muted">Nothing is sent from this app.</span></div>`).join("");
     const errs = (m.actions || []).filter((a) => a.result && a.result.error).map((a) => `<div class="small muted" style="align-self:flex-start">${esc(a.result.error)}</div>`).join("");
-    return `<div class="msg ${m.role === "user" ? "user" : "bot"}">${esc(m.text)}</div>${acts ? `<div class="acts">${acts}</div>` : ""}${errs}${drafts}`;
+    return `<div class="msg ${m.role === "user" ? "user" : "bot"}">${esc(m.role === "user" ? m.text : String(m.text).replace(/\*\*/g, ""))}</div>${acts ? `<div class="acts">${acts}</div>` : ""}${errs}${drafts}`;
   }).join("");
   body.scrollTop = body.scrollHeight;
   const slot = $("#confirm-slot");
