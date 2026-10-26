@@ -1,0 +1,35 @@
+{
+  "compact": [
+    {"category": "Venue & decor", "pct": 28},
+    {"category": "Food & catering", "pct": 32},
+    {"category": "Attire & jewellery", "pct": 16},
+    {"category": "Photo & video", "pct": 8},
+    {"category": "Rituals & officiant", "pct": 4},
+    {"category": "Invitations & gifts", "pct": 4},
+    {"category": "Travel & stay", "pct": 4},
+    {"category": "Music & entertainment", "pct": 2},
+    {"category": "Contingency", "pct": 2}
+  ],
+  "standard": [
+    {"category": "Venue & decor", "pct": 25},
+    {"category": "Food & catering", "pct": 28},
+    {"category": "Attire & jewellery", "pct": 14},
+    {"category": "Photo & video", "pct": 7},
+    {"category": "Rituals & officiant", "pct": 4},
+    {"category": "Invitations & gifts", "pct": 4},
+    {"category": "Travel & stay", "pct": 6},
+    {"category": "Music & entertainment", "pct": 6},
+    {"category": "Contingency", "pct": 6}
+  ],
+  "grand": [
+    {"category": "Venue & decor", "pct": 24},
+    {"category": "Food & catering", "pct": 26},
+    {"category": "Attire & jewellery", "pct": 12},
+    {"category": "Photo & video", "pct": 7},
+    {"category": "Rituals & officiant", "pct": 3},
+    {"category": "Invitations & gifts", "pct": 4},
+    {"category": "Travel & stay", "pct": 8},
+    {"category": "Music & entertainment", "pct": 8},
+    {"category": "Contingency", "pct": 8}
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "partner_a": "Meera",
+  "partner_b": "Aarav",
+  "side_a_label": "Bride's side",
+  "side_b_label": "Groom's side",
+  "city_a": "Chennai",
+  "city_b": "Delhi",
+  "wedding_city": "Chennai",
+  "wedding_date": null,
+  "wedding_date_days_from_today": 240,
+  "budget_total": 2500000,
+  "currency": "INR",
+  "guest_count": 250,
+  "traditions": [
+    {"religion": "hindu", "variant": "tamil"},
+    {"religion": "sikh", "variant": "punjabi"}
+  ]
+}

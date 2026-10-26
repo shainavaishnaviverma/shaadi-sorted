@@ -1,0 +1,14 @@
+[
+  {"name": "Iyer family", "party_size": 5, "side": "a", "functions": ["all"], "rsvp": "yes"},
+  {"name": "Lakshmi Aunty", "party_size": 2, "side": "a", "functions": ["all"], "rsvp": "yes"},
+  {"name": "Venkat Mama and family", "party_size": 4, "side": "a", "functions": ["all"], "rsvp": "pending"},
+  {"name": "Priya & Karthik", "party_size": 2, "side": "a", "functions": ["Reception", "Kalyanam"], "rsvp": "maybe"},
+  {"name": "Ramesh Uncle", "party_size": 3, "side": "a", "functions": ["all"], "rsvp": "no"},
+  {"name": "Singh family", "party_size": 6, "side": "b", "functions": ["all"], "rsvp": "yes"},
+  {"name": "Harpreet Chacha", "party_size": 3, "side": "b", "functions": ["all"], "rsvp": "yes"},
+  {"name": "Gill family", "party_size": 4, "side": "b", "functions": ["all"], "rsvp": "pending"},
+  {"name": "Simran & Jasleen", "party_size": 2, "side": "b", "functions": ["Sangeet", "Reception"], "rsvp": "yes"},
+  {"name": "Colleagues from Gurgaon", "party_size": 8, "side": "b", "functions": ["Reception"], "rsvp": "maybe"},
+  {"name": "Kapoor family", "party_size": 4, "side": "b", "functions": ["all"], "rsvp": "pending"},
+  {"name": "College friends (Yale)", "party_size": 6, "side": "a", "functions": ["Sangeet", "Reception"], "rsvp": "yes"}
+]

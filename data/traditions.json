@@ -1,0 +1,276 @@
+{
+  "_readme": "Layered knowledge base: religion base + optional regional variant. Day offsets are relative to the main wedding day (0). confidence = high|medium|low. This file never contains auspicious dates; timing questions go to the person in confirm_with. Verify every item with your family's religious authority.",
+  "religions": {
+    "hindu": {
+      "label": "Hindu",
+      "confirm_with": ["pandit"],
+      "functions": [
+        {"key": "engagement", "name": "Engagement (Roka / Sagai)", "order": 10, "day_offset": -45, "time_of_day": "afternoon", "host_side": "both", "guest_share": 0.3, "optional": false, "rituals": ["Exchange of rings and gifts", "Family blessings"], "confidence": "medium"},
+        {"key": "mehndi", "name": "Mehndi", "order": 20, "day_offset": -2, "time_of_day": "afternoon", "host_side": "bride", "guest_share": 0.5, "optional": true, "rituals": ["Henna for the bride", "Songs and family time"], "confidence": "medium"},
+        {"key": "haldi", "name": "Haldi", "order": 30, "day_offset": -1, "time_of_day": "morning", "host_side": "each", "guest_share": 0.4, "optional": true, "rituals": ["Turmeric paste applied by family members"], "confidence": "high"},
+        {"key": "wedding", "name": "Wedding Ceremony (Vivah)", "order": 50, "day_offset": 0, "time_of_day": "morning", "host_side": "both", "guest_share": 1.0, "optional": false, "main": true, "rituals": ["Kanyadaan", "Agni pheras / Saptapadi", "Mangalsutra or sindoor, depending on region"], "confidence": "high"},
+        {"key": "reception", "name": "Reception", "order": 70, "day_offset": 0, "time_of_day": "evening", "host_side": "groom", "guest_share": 0.9, "optional": true, "rituals": ["Dinner and blessings for the new couple"], "confidence": "medium"}
+      ],
+      "constraints": {
+        "dietary": [{"rule": "Many families serve vegetarian food at religious functions and avoid alcohol there; practice varies by family.", "confidence": "medium"}],
+        "dress": [{"rule": "Traditional Indian attire is the norm. Many families avoid black at ceremonies.", "confidence": "medium"}],
+        "timing": [{"rule": "Ceremony timings are set by the family pandit, not by this app.", "confidence": "high"}],
+        "who_pays": [{"rule": "Traditionally the bride's family hosts the wedding and the groom's family hosts the reception; many modern families split costs.", "confidence": "medium"}]
+      },
+      "task_templates": [
+        {"title": "Plan the engagement gathering and guest list", "function": "engagement", "lead_days": 30},
+        {"title": "Confirm ceremony details and samagri (ritual items) list with your pandit", "function": "wedding", "lead_days": 120},
+        {"title": "Decide who performs which ritual roles (kanyadaan, pheras)", "function": "wedding", "lead_days": 30},
+        {"title": "Plan Mehndi timing and henna", "function": "mehndi", "lead_days": 14},
+        {"title": "Arrange turmeric, flowers and outfits for Haldi", "function": "haldi", "lead_days": 10}
+      ]
+    },
+    "muslim": {
+      "label": "Muslim",
+      "confirm_with": ["imam", "qazi"],
+      "functions": [
+        {"key": "engagement", "name": "Engagement (Mangni)", "order": 10, "day_offset": -45, "time_of_day": "afternoon", "host_side": "both", "guest_share": 0.3, "optional": false, "rituals": ["Exchange of rings and sweets", "Family agreement"], "confidence": "medium"},
+        {"key": "mehndi", "name": "Mehndi", "order": 20, "day_offset": -2, "time_of_day": "evening", "host_side": "bride", "guest_share": 0.5, "optional": true, "rituals": ["Henna for the bride", "Songs"], "confidence": "high"},
+        {"key": "wedding", "name": "Nikah", "order": 50, "day_offset": 0, "time_of_day": "afternoon", "host_side": "both", "guest_share": 1.0, "optional": false, "main": true, "rituals": ["Ijab-o-Qubool (offer and acceptance)", "Mahr agreed", "Two witnesses", "Khutba", "Signing of the nikahnama"], "confidence": "high"},
+        {"key": "reception", "name": "Walima", "order": 70, "day_offset": 1, "time_of_day": "evening", "host_side": "groom", "guest_share": 0.9, "optional": false, "rituals": ["Feast hosted by the groom's family"], "confidence": "high"}
+      ],
+      "constraints": {
+        "dietary": [{"rule": "Halal food only; no alcohol.", "confidence": "high"}],
+        "dress": [{"rule": "Modest dress. Some families arrange separate seating for men and women; ask your families.", "confidence": "medium"}],
+        "timing": [{"rule": "Ask your imam about timing, including whether any period such as Ramadan affects your plan.", "confidence": "low"}],
+        "who_pays": [{"rule": "The groom gives the mahr to the bride (required). The Walima is hosted by the groom's family. The nikah meal is often hosted by the bride's family but this varies.", "confidence": "medium"}]
+      },
+      "task_templates": [
+        {"title": "Agree on the mahr and speak with the imam/qazi about the nikah", "function": "wedding", "lead_days": 90},
+        {"title": "Confirm two witnesses and nikahnama paperwork", "function": "wedding", "lead_days": 21},
+        {"title": "Plan the Walima guest list and halal catering", "function": "reception", "lead_days": 45}
+      ]
+    },
+    "sikh": {
+      "label": "Sikh",
+      "confirm_with": ["granthi"],
+      "functions": [
+        {"key": "engagement", "name": "Engagement (Kurmai)", "order": 10, "day_offset": -45, "time_of_day": "afternoon", "host_side": "both", "guest_share": 0.3, "optional": false, "rituals": ["Exchange of gifts and rings", "Ardas (prayer)"], "confidence": "medium"},
+        {"key": "wedding", "name": "Anand Karaj", "order": 50, "day_offset": 0, "time_of_day": "morning", "host_side": "both", "guest_share": 1.0, "optional": false, "main": true, "rituals": ["Laavan (four rounds)", "Kirtan", "Ardas", "Langar"], "confidence": "high"},
+        {"key": "reception", "name": "Reception", "order": 70, "day_offset": 0, "time_of_day": "evening", "host_side": "groom", "guest_share": 0.9, "optional": true, "rituals": ["Dinner and celebration"], "confidence": "medium"}
+      ],
+      "constraints": {
+        "dietary": [{"rule": "Langar and the gurdwara premises are vegetarian and free of alcohol and tobacco.", "confidence": "high"}],
+        "dress": [{"rule": "Everyone covers their head in the gurdwara; modest dress.", "confidence": "high"}],
+        "timing": [{"rule": "Anand Karaj is usually held in the morning; confirm availability with the gurdwara and granthi.", "confidence": "medium"}],
+        "who_pays": [{"rule": "No fixed rule; families usually agree on this together.", "confidence": "low"}]
+      },
+      "task_templates": [
+        {"title": "Book the gurdwara and speak with the granthi", "function": "wedding", "lead_days": 120},
+        {"title": "Confirm laavan readers, kirtan and langar arrangements", "function": "wedding", "lead_days": 30},
+        {"title": "Plan the engagement (Kurmai) gathering", "function": "engagement", "lead_days": 30}
+      ]
+    },
+    "christian": {
+      "label": "Christian",
+      "confirm_with": ["priest", "pastor"],
+      "functions": [
+        {"key": "engagement", "name": "Engagement (Ring Ceremony)", "order": 10, "day_offset": -60, "time_of_day": "afternoon", "host_side": "both", "guest_share": 0.3, "optional": false, "rituals": ["Blessing and exchange of rings"], "confidence": "medium"},
+        {"key": "wedding", "name": "Church Wedding", "order": 50, "day_offset": 0, "time_of_day": "morning", "host_side": "both", "guest_share": 1.0, "optional": false, "main": true, "rituals": ["Vows", "Exchange of rings", "Readings and hymns", "Blessing by the priest or pastor"], "confidence": "high"},
+        {"key": "reception", "name": "Reception", "order": 70, "day_offset": 0, "time_of_day": "evening", "host_side": "both", "guest_share": 0.9, "optional": true, "rituals": ["Dinner, toasts, cake cutting"], "confidence": "medium"}
+      ],
+      "constraints": {
+        "dietary": [{"rule": "No fixed rules; alcohol is common at receptions.", "confidence": "medium"}],
+        "dress": [{"rule": "Bride often wears white or ivory; guests dress modestly for church.", "confidence": "medium"}],
+        "timing": [{"rule": "Church scheduling, pre-marriage preparation and banns can take months and differ by denomination; confirm early with your priest or pastor.", "confidence": "medium"}],
+        "who_pays": [{"rule": "Traditionally the bride's family; many couples now split costs.", "confidence": "medium"}]
+      },
+      "task_templates": [
+        {"title": "Book the church and meet your priest/pastor; ask about the pre-marriage course and banns", "function": "wedding", "lead_days": 150},
+        {"title": "Choose readings, hymns and wedding party roles", "function": "wedding", "lead_days": 45},
+        {"title": "Plan the ring ceremony", "function": "engagement", "lead_days": 30}
+      ]
+    },
+    "buddhist": {
+      "label": "Buddhist",
+      "confirm_with": ["monk"],
+      "functions": [
+        {"key": "engagement", "name": "Engagement", "order": 10, "day_offset": -30, "time_of_day": "afternoon", "host_side": "both", "guest_share": 0.3, "optional": true, "rituals": ["Family meeting and exchange of gifts"], "confidence": "low"},
+        {"key": "wedding", "name": "Buddhist Wedding Ceremony", "order": 50, "day_offset": 0, "time_of_day": "morning", "host_side": "both", "guest_share": 1.0, "optional": false, "main": true, "rituals": ["Blessing and chanting by a monk", "Exchange of vows", "Often kept simple"], "confidence": "low"},
+        {"key": "reception", "name": "Reception", "order": 70, "day_offset": 0, "time_of_day": "evening", "host_side": "both", "guest_share": 0.9, "optional": true, "rituals": ["Shared meal"], "confidence": "low"}
+      ],
+      "constraints": {
+        "dietary": [{"rule": "Many families keep the ceremony meal vegetarian and alcohol-free; varies widely.", "confidence": "low"}],
+        "dress": [{"rule": "Simple, modest dress; light colours are common.", "confidence": "low"}],
+        "timing": [{"rule": "Depends on the monk's availability; ask your monk.", "confidence": "low"}],
+        "who_pays": [{"rule": "No fixed tradition.", "confidence": "low"}]
+      },
+      "task_templates": [
+        {"title": "Meet the monk to plan the blessing and vows", "function": "wedding", "lead_days": 60}
+      ]
+    },
+    "jain": {
+      "label": "Jain",
+      "confirm_with": ["pandit", "vidhikarak"],
+      "functions": [
+        {"key": "engagement", "name": "Engagement (Sagai)", "order": 10, "day_offset": -45, "time_of_day": "afternoon", "host_side": "both", "guest_share": 0.3, "optional": false, "rituals": ["Exchange of gifts", "Family blessings"], "confidence": "medium"},
+        {"key": "wedding", "name": "Jain Vivah", "order": 50, "day_offset": 0, "time_of_day": "morning", "host_side": "both", "guest_share": 1.0, "optional": false, "main": true, "rituals": ["Pheras", "Mantras led by the vidhikarak"], "confidence": "medium"},
+        {"key": "reception", "name": "Reception", "order": 70, "day_offset": 0, "time_of_day": "evening", "host_side": "groom", "guest_share": 0.8, "optional": true, "rituals": ["Dinner, served early"], "confidence": "low"}
+      ],
+      "constraints": {
+        "dietary": [{"rule": "Strictly vegetarian with no root vegetables (such as onion, garlic, potato); no alcohol.", "confidence": "high"}],
+        "dress": [{"rule": "Modest dress; leather is avoided in temples.", "confidence": "medium"}],
+        "timing": [{"rule": "Many observant families finish meals before sunset; plan food timings with your families.", "confidence": "medium"}],
+        "who_pays": [{"rule": "Varies by family and community.", "confidence": "low"}]
+      },
+      "task_templates": [
+        {"title": "Speak with your vidhikarak/pandit about the ceremony and Jain dietary rules for every function", "function": "wedding", "lead_days": 120},
+        {"title": "Brief the caterer: no root vegetables, meals before sunset", "function": "wedding", "lead_days": 45}
+      ]
+    }
+  },
+  "variants": {
+    "punjabi": {
+      "label": "Punjabi",
+      "applies_to": ["hindu", "sikh"],
+      "confirm_with": ["pandit", "granthi"],
+      "functions": [
+        {"key": "mehndi", "name": "Mehndi", "order": 20, "day_offset": -2, "time_of_day": "afternoon", "host_side": "bride", "guest_share": 0.6, "optional": true, "rituals": ["Henna", "Boliyan and dholki"], "confidence": "high"},
+        {"key": "jaggo", "name": "Jaggo", "order": 35, "day_offset": -1, "time_of_day": "evening", "host_side": "each", "guest_share": 0.5, "optional": true, "rituals": ["Decorated pot of lamps carried through the neighbourhood", "Dancing and boliyan"], "confidence": "medium"},
+        {"key": "sangeet", "name": "Sangeet", "order": 40, "day_offset": -1, "time_of_day": "evening", "host_side": "both", "guest_share": 0.8, "optional": true, "rituals": ["Family performances", "Dancing"], "confidence": "medium"},
+        {"key": "chooda", "name": "Chooda & Kalire", "order": 45, "day_offset": 0, "time_of_day": "morning", "host_side": "bride", "guest_share": 0.2, "optional": true, "rituals": ["Red and ivory bangles presented by the maternal uncle's family", "Kalire tied to the bangles"], "confidence": "medium"},
+        {"key": "baraat_milni", "name": "Baraat & Milni", "order": 48, "day_offset": 0, "time_of_day": "morning", "host_side": "both", "guest_share": 1.0, "optional": false, "rituals": ["Groom's procession with dhol", "Milni: formal meeting of the two families with gifts"], "confidence": "high"}
+      ],
+      "constraints": {
+        "dietary": [{"rule": "Non-vegetarian food and alcohol are common at Sangeet and Reception in many families, but a gurdwara ceremony venue is vegetarian and dry.", "confidence": "medium"}],
+        "dress": [{"rule": "Bright colours; red is common for the bride.", "confidence": "medium"}],
+        "timing": [{"rule": "The wedding day tends to start early (chooda, baraat, milni, then the ceremony).", "confidence": "medium"}],
+        "who_pays": [{"rule": "The bride's family traditionally hosts the wedding; the groom's family often hosts the Sangeet or Reception.", "confidence": "medium"}]
+      },
+      "task_templates": [
+        {"title": "Plan Sangeet performances and music", "function": "sangeet", "lead_days": 30},
+        {"title": "Prepare the jaggo pot and invite neighbours", "function": "jaggo", "lead_days": 14},
+        {"title": "Arrange chooda and kalire with the maternal uncle's family", "function": "chooda", "lead_days": 21},
+        {"title": "Plan the milni (who meets whom, gift list)", "function": "baraat_milni", "lead_days": 21}
+      ]
+    },
+    "gujarati": {
+      "label": "Gujarati",
+      "applies_to": ["hindu", "jain"],
+      "confirm_with": ["pandit"],
+      "functions": [
+        {"key": "pithi", "name": "Pithi", "order": 30, "day_offset": -1, "time_of_day": "morning", "host_side": "each", "guest_share": 0.5, "optional": true, "rituals": ["Turmeric and sandalwood paste applied to the bride and groom at their own homes"], "confidence": "high"},
+        {"key": "garba_sangeet", "name": "Garba / Sangeet Night", "order": 40, "day_offset": -1, "time_of_day": "evening", "host_side": "both", "guest_share": 0.8, "optional": true, "rituals": ["Garba and dandiya", "Family performances"], "confidence": "high"},
+        {"key": "graha_shanti", "name": "Graha Shanti Puja", "order": 45, "day_offset": -1, "time_of_day": "morning", "host_side": "each", "guest_share": 0.15, "optional": true, "rituals": ["Prayers for the couple, led by the pandit"], "confidence": "medium"},
+        {"key": "baraat_ponkhvu", "name": "Jaan & Ponkhvu", "order": 48, "day_offset": 0, "time_of_day": "morning", "host_side": "both", "guest_share": 1.0, "optional": false, "rituals": ["Groom's procession (jaan)", "Bride's mother welcomes the groom (ponkhvu)"], "confidence": "medium"}
+      ],
+      "constraints": {
+        "dietary": [{"rule": "Gujarati wedding menus are almost always vegetarian and alcohol is rarely served; Jain families keep it stricter.", "confidence": "high"}],
+        "dress": [{"rule": "Chaniya choli and kediyu are popular for Garba night; bright colours.", "confidence": "medium"}],
+        "timing": [{"rule": "Garba night is usually the evening before the wedding.", "confidence": "medium"}],
+        "who_pays": [{"rule": "The bride's family traditionally hosts the wedding meal; varies in practice.", "confidence": "low"}]
+      },
+      "task_templates": [
+        {"title": "Plan Garba/Sangeet music and dress-code note for guests", "function": "garba_sangeet", "lead_days": 30},
+        {"title": "Arrange pithi supplies at each home", "function": "pithi", "lead_days": 7},
+        {"title": "Plan the jaan and ponkhvu welcome", "function": "baraat_ponkhvu", "lead_days": 21}
+      ]
+    },
+    "tamil": {
+      "label": "Tamil",
+      "applies_to": ["hindu"],
+      "confirm_with": ["pandit", "purohit"],
+      "functions": [
+        {"key": "engagement", "name": "Nichayathartham (Engagement)", "order": 10, "day_offset": -45, "time_of_day": "afternoon", "host_side": "both", "guest_share": 0.3, "optional": false, "rituals": ["Exchange of thamboolam plates", "Formal agreement between families"], "confidence": "high"},
+        {"key": "janavasam", "name": "Janavasam & Nalangu", "order": 40, "day_offset": -1, "time_of_day": "evening", "host_side": "both", "guest_share": 0.6, "optional": true, "rituals": ["Groom's procession to the venue", "Nalangu: playful ritual games"], "confidence": "medium"},
+        {"key": "wedding", "name": "Kalyanam (Wedding Ceremony)", "order": 50, "day_offset": 0, "time_of_day": "morning", "host_side": "both", "guest_share": 1.0, "optional": false, "main": true, "rituals": ["Kasi Yatra", "Oonjal (swing)", "Kanyadaanam", "Mangalya Dharanam (tying the thali)", "Saptapadi", "Ammi mithithal"], "confidence": "high"},
+        {"key": "reception", "name": "Reception", "order": 30, "day_offset": -1, "time_of_day": "evening", "host_side": "both", "guest_share": 0.9, "optional": true, "rituals": ["Reception on the evening before the ceremony is common"], "confidence": "medium"}
+      ],
+      "constraints": {
+        "dietary": [{"rule": "Traditional wedding meals are vegetarian, served on banana leaf.", "confidence": "high"}],
+        "dress": [{"rule": "Silk saree (often Kanjeevaram) for the bride; veshti and angavastram for the groom.", "confidence": "high"}],
+        "timing": [{"rule": "Ceremony timings are set by the priest; ask them early.", "confidence": "medium"}],
+        "who_pays": [{"rule": "Varies by family; the bride's family often hosts the main wedding meal.", "confidence": "low"}]
+      },
+      "task_templates": [
+        {"title": "Confirm Kasi Yatra, oonjal and thali arrangements with your priest", "function": "wedding", "lead_days": 90},
+        {"title": "Plan the reception evening", "function": "reception", "lead_days": 30},
+        {"title": "Plan Nalangu games and family roles", "function": "janavasam", "lead_days": 14}
+      ]
+    },
+    "bengali": {
+      "label": "Bengali",
+      "applies_to": ["hindu"],
+      "confirm_with": ["purohit", "pandit"],
+      "functions": [
+        {"key": "ashirbad", "name": "Aashirbaad (Blessing)", "order": 15, "day_offset": -14, "time_of_day": "afternoon", "host_side": "each", "guest_share": 0.25, "optional": true, "rituals": ["Elders bless the bride and groom with gifts, paddy and durba grass"], "confidence": "high"},
+        {"key": "aiburobhaat", "name": "Aiburobhaat", "order": 25, "day_offset": -1, "time_of_day": "afternoon", "host_side": "each", "guest_share": 0.3, "optional": true, "rituals": ["Last bachelor meal at each home, cooked by family"], "confidence": "high"},
+        {"key": "haldi", "name": "Gaye Holud", "order": 30, "day_offset": -1, "time_of_day": "morning", "host_side": "each", "guest_share": 0.4, "optional": true, "rituals": ["Turmeric sent from the other side with fish, sweets and a saree"], "confidence": "high"},
+        {"key": "wedding", "name": "Biye (Wedding Ceremony)", "order": 50, "day_offset": 0, "time_of_day": "evening", "host_side": "both", "guest_share": 1.0, "optional": false, "main": true, "rituals": ["Subho Drishti", "Saat Paak", "Sindoor Daan", "Mala Bodol (garland exchange)"], "confidence": "high"},
+        {"key": "reception", "name": "Bou Bhaat (Reception)", "order": 70, "day_offset": 1, "time_of_day": "evening", "host_side": "groom", "guest_share": 0.9, "optional": false, "rituals": ["Feast hosted by the groom's family for the new bride"], "confidence": "high"}
+      ],
+      "constraints": {
+        "dietary": [{"rule": "Fish is traditional at many Bengali Hindu feasts and in gaye holud gifts; plan vegetarian alternatives for guests who do not eat it.", "confidence": "high"}],
+        "dress": [{"rule": "Red and white saree (or red Benarasi) for the bride; dhoti-panjabi and topor for the groom.", "confidence": "medium"}],
+        "timing": [{"rule": "The couple traditionally fast until the ceremony in many families; ask your purohit.", "confidence": "medium"}],
+        "who_pays": [{"rule": "The bride's family hosts the wedding; the groom's family hosts Bou Bhaat.", "confidence": "medium"}]
+      },
+      "task_templates": [
+        {"title": "Plan Gaye Holud trays at each home (turmeric, fish, sweets, saree)", "function": "haldi", "lead_days": 14},
+        {"title": "Plan Aiburobhaat meals at each home", "function": "aiburobhaat", "lead_days": 10},
+        {"title": "Plan Bou Bhaat hosted by the groom's family", "function": "reception", "lead_days": 30},
+        {"title": "Fix Aashirbaad date and family gifts", "function": "ashirbad", "lead_days": 14}
+      ]
+    },
+    "marathi": {
+      "label": "Marathi",
+      "applies_to": ["hindu"],
+      "confirm_with": ["bhatji", "pandit"],
+      "functions": [
+        {"key": "engagement", "name": "Sakharpuda (Engagement)", "order": 10, "day_offset": -45, "time_of_day": "afternoon", "host_side": "both", "guest_share": 0.3, "optional": false, "rituals": ["Exchange of sugar and gifts", "Family blessings"], "confidence": "high"},
+        {"key": "kelvan", "name": "Kelvan", "order": 15, "day_offset": -10, "time_of_day": "afternoon", "host_side": "each", "guest_share": 0.2, "optional": true, "rituals": ["Pre-wedding feast hosted by relatives for the couple"], "confidence": "medium"},
+        {"key": "haldi", "name": "Halad Chadavne", "order": 30, "day_offset": -1, "time_of_day": "morning", "host_side": "each", "guest_share": 0.4, "optional": true, "rituals": ["Turmeric applied by married women of the family"], "confidence": "high"},
+        {"key": "simant_puja", "name": "Simant Puja", "order": 40, "day_offset": -1, "time_of_day": "evening", "host_side": "bride", "guest_share": 0.3, "optional": true, "rituals": ["Bride's family welcomes the groom's family"], "confidence": "medium"},
+        {"key": "wedding", "name": "Lagna (Wedding Ceremony)", "order": 50, "day_offset": 0, "time_of_day": "afternoon", "host_side": "both", "guest_share": 1.0, "optional": false, "main": true, "rituals": ["Antarpat", "Mangalashtak", "Saptapadi", "Mangalsutra"], "confidence": "high"}
+      ],
+      "constraints": {
+        "dietary": [{"rule": "Ceremony meals are commonly vegetarian; confirm with both families.", "confidence": "medium"}],
+        "dress": [{"rule": "Nauvari (nine-yard) saree for the bride; dhoti and pheta (turban) for the groom are traditional.", "confidence": "medium"}],
+        "timing": [{"rule": "Ceremony timing is set by the priest.", "confidence": "low"}],
+        "who_pays": [{"rule": "The bride's family traditionally hosts the wedding; varies in practice.", "confidence": "low"}]
+      },
+      "task_templates": [
+        {"title": "Arrange nauvari saree, dhoti and pheta", "function": "wedding", "lead_days": 90},
+        {"title": "Plan Simant Puja welcome", "function": "simant_puja", "lead_days": 21},
+        {"title": "Plan the Kelvan feasts", "function": "kelvan", "lead_days": 14}
+      ]
+    },
+    "nikah_style": {
+      "label": "Nikah-style (Indian Muslim)",
+      "applies_to": ["muslim"],
+      "confirm_with": ["imam", "qazi"],
+      "functions": [
+        {"key": "dholki", "name": "Dholki", "order": 15, "day_offset": -5, "time_of_day": "evening", "host_side": "each", "guest_share": 0.3, "optional": true, "rituals": ["Evenings of singing with a dholak at each home"], "confidence": "medium"},
+        {"key": "rukhsati", "name": "Rukhsati", "order": 60, "day_offset": 0, "time_of_day": "evening", "host_side": "both", "guest_share": 0.5, "optional": true, "rituals": ["Bride's farewell from her parents' home"], "confidence": "high"}
+      ],
+      "constraints": {
+        "dietary": [{"rule": "All food halal; large biryani-style meals are typical.", "confidence": "medium"}],
+        "dress": [{"rule": "Modest dress; sherwani or shalwar for men and heavy lehenga or sharara for brides are common.", "confidence": "medium"}],
+        "timing": [],
+        "who_pays": [{"rule": "Mahr from the groom is required; Walima hosted by the groom's family.", "confidence": "high"}]
+      },
+      "task_templates": [
+        {"title": "Plan Dholki evenings at each home", "function": "dholki", "lead_days": 10},
+        {"title": "Plan the rukhsati moment with both families", "function": "rukhsati", "lead_days": 14}
+      ]
+    }
+  },
+  "generic_tasks": [
+    {"title": "Agree on the total budget and who pays for which function", "lead_days_before_wedding": 270},
+    {"title": "Draft the guest list for each side", "lead_days_before_wedding": 240},
+    {"title": "Shortlist and book the venue(s)", "lead_days_before_wedding": 210},
+    {"title": "Meet your {confirm_with} to confirm ritual details and timings", "lead_days_before_wedding": 150},
+    {"title": "Send save-the-dates", "lead_days_before_wedding": 120},
+    {"title": "Check marriage registration requirements and paperwork", "lead_days_before_wedding": 60},
+    {"title": "Send formal invitations", "lead_days_before_wedding": 60},
+    {"title": "Collect RSVPs and finalise headcount per function", "lead_days_before_wedding": 21},
+    {"title": "Confirm outfits are fitted and ready", "lead_days_before_wedding": 14},
+    {"title": "Share final headcount with the caterer and venue", "lead_days_before_wedding": 10},
+    {"title": "Prepare gift envelopes and a day-of schedule for family", "lead_days_before_wedding": 5}
+  ]
+}
