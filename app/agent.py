@@ -54,7 +54,7 @@ def run_chat(state: dict, user_msg: str) -> dict:
             if not out["tool_calls"]:
                 reply = out["content"]
                 break
-            messages.append({"role": "assistant", "content": out["content"] or None, "tool_calls": [
+            messages.append({"role": "assistant", "content": out["content"] or None, "_raw": out.get("raw"), "tool_calls": [
                 {"id": c["id"], "type": "function", "function": {"name": c["name"], "arguments": c["arguments"]}} for c in out["tool_calls"]]})
             for c in out["tool_calls"]:
                 if calls >= config.MAX_TOOL_CALLS_PER_TURN:
@@ -70,13 +70,41 @@ def run_chat(state: dict, user_msg: str) -> dict:
     except (llm.LLMUnavailable, llm.BudgetExceeded) as exc:
         if isinstance(exc, llm.BudgetExceeded):
             safety.log_event(state, "token_cap", str(exc))
-        reply = str(exc)
+        # If tools already ran, still tell the user what happened (written in code, no extra model call).
+        reply = _summarize(actions) if actions and isinstance(exc, llm.LLMUnavailable) else str(exc)
 
     reply = safety.scrub_muhurat(reply, confirm_with, state)
     state["chat"].append({"role": "user", "content": user_msg})
     state["chat"].append({"role": "assistant", "content": reply})
     state["chat"] = state["chat"][-40:]
     return {"reply": reply, "actions": actions}
+
+
+def _summarize(actions: list) -> str:
+    lines = []
+    for a in actions:
+        r, t = a["result"], a["tool"]
+        if r.get("error"):
+            lines.append(r["error"])
+        elif r.get("status") == "pending_confirmation":
+            lines.append(r["message"])
+        elif t == "add_guest":
+            lines.append(f"Added {r['guest']} ({r['party_size']}) to {', '.join(r['invited_to'])}.")
+        elif t == "update_rsvp":
+            lines.append(f"{r['guest']}: {r['function']} set to {r['status']}.")
+        elif t == "set_rsvp":
+            lines.append(f"{r['guest']}: all functions set to {r['status']}.")
+        elif t == "update_budget":
+            lines.append("Budget updated.")
+        elif t == "complete_task":
+            lines.append(f"Task {'done' if r['done'] else 'reopened'}: {r['task']}.")
+        elif t == "get_next_step":
+            lines.append("Everything is done." if r.get("all_done") else f"Next step: {r['task']} (due {r['due']}).")
+        elif t == "draft_invite_message":
+            lines.append(f"Drafted an invite for {r['guest']} (see below).")
+        else:
+            lines.append("Done.")
+    return " ".join(lines)
 
 
 def _args(raw):

@@ -13,7 +13,7 @@ You need **Python 3.10 or newer** and an internet connection for the first insta
 1. **Clone and enter the folder**
 
    ```
-   git clone <this repo's URL>
+   git clone https://github.com/shainavaishnaviverma/shaadi-sorted.git
    cd shaadi-sorted
    ```
 

@@ -57,6 +57,8 @@ def chat(state: dict, agent: str, messages: list, tools: list = None, json_mode:
     """Returns {"content": str, "tool_calls": [{"id","name","arguments"}]}. Updates state['usage']."""
     if total_tokens(state) >= config.TOKEN_CAP:
         raise BudgetExceeded(f"Token cap of {config.TOKEN_CAP:,} reached. Reset the meter to continue.")
+    if tools:
+        return _chat_responses(state, agent, messages, tools)  # function tools need the Responses API on this gateway
     kwargs = {"model": config.MODEL, "messages": messages}
     if tools:
         kwargs["tools"] = tools
@@ -81,6 +83,56 @@ def chat(state: dict, agent: str, messages: list, tools: list = None, json_mode:
             for tc in (msg.tool_calls or [])
         ],
     }
+
+
+def _to_responses_input(messages: list) -> list:
+    """Convert chat-style messages (with tool_calls / tool results) to Responses API input items."""
+    items = []
+    for m in messages:
+        role = m["role"]
+        if role == "tool":
+            items.append({"type": "function_call_output", "call_id": m["tool_call_id"], "output": m["content"]})
+        elif role == "assistant" and m.get("_raw"):
+            items.extend(m["_raw"])  # exact items the model produced (keeps reasoning items paired with calls)
+        elif role == "assistant" and m.get("tool_calls"):
+            if m.get("content"):
+                items.append({"role": "assistant", "content": m["content"]})
+            for c in m["tool_calls"]:
+                items.append({"type": "function_call", "call_id": c["id"], "name": c["function"]["name"], "arguments": c["function"]["arguments"]})
+        else:
+            items.append({"role": role, "content": m["content"] or ""})
+    return items
+
+
+def _chat_responses(state: dict, agent: str, messages: list, tools: list) -> dict:
+    flat_tools = [{"type": "function", "name": t["function"]["name"], "description": t["function"]["description"],
+                   "parameters": t["function"]["parameters"], "strict": False} for t in tools]
+    kwargs = {"model": config.MODEL, "input": _to_responses_input(messages), "tools": flat_tools, "reasoning": {"effort": "low"}}
+    start = time.time()
+    client = _client()
+    try:
+        try:
+            resp = client.responses.create(**kwargs)
+        except Exception as exc:
+            if "reasoning" in str(exc).lower() and "reasoning" in kwargs:  # gateway rejected the effort setting: retry without it
+                kwargs.pop("reasoning")
+                resp = client.responses.create(**kwargs)
+            else:
+                raise
+    except Exception as exc:
+        raise LLMUnavailable(f"The AI service call failed: {type(exc).__name__}: {str(exc)[:200]}")
+    u = resp.usage
+    cached = getattr(getattr(u, "input_tokens_details", None), "cached_tokens", 0) or 0
+    prompt = getattr(u, "input_tokens", 0) or 0
+    record(state, agent, {"input": max(prompt - cached, 0), "cached": cached, "output": getattr(u, "output_tokens", 0) or 0},
+           int((time.time() - start) * 1000))
+    calls, text = [], ""
+    for item in resp.output:
+        if item.type == "function_call":
+            calls.append({"id": item.call_id, "name": item.name, "arguments": item.arguments or "{}"})
+        elif item.type == "message":
+            text += "".join(getattr(c, "text", "") or "" for c in item.content)
+    return {"content": text, "tool_calls": calls, "raw": [o.model_dump(exclude_none=True) for o in resp.output]}
 
 
 def parse_json(text: str):
